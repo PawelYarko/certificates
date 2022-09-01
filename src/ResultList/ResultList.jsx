@@ -1,14 +1,13 @@
 import React from 'react';
 
-const ResultList = ({ data }) => {
-  console.log(data);
+const ResultList = ({ currentListElem }) => {
   return (
     <>
       <ul>
-        <li>Common Name: {data.commonName}</li>
-        <li>Issuer CN: {data.issuerCN}</li>
-        <li>validFrom: {data.validFrom}</li>
-        <li>validTill: {data.validTill}</li>
+        <li>Common Name: {currentListElem.commonName}</li>
+        <li>Issuer CN: {currentListElem.issuerCN}</li>
+        <li>validFrom: {currentListElem.validFrom}</li>
+        <li>validTill: {currentListElem.validTill}</li>
       </ul>
     </>
   );

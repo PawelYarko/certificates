@@ -1,10 +1,21 @@
 import React from 'react';
-import s from 'NamesList.module.css';
+import s from './NamesList.module.css';
 
-const NamesList = ({ name }) => {
+const NamesList = ({ listValue, onClick }) => {
+  console.log(listValue);
   return (
     <>
-      <li>{name}</li>
+      {listValue ? (
+        listValue
+          .filter((item) => item)
+          .map((item) => (
+            <li key={item.idName} data-name={item.idName} onClick={onClick}>
+              {item.commonName}
+            </li>
+          ))
+      ) : (
+        <p>Порожньо</p>
+      )}
     </>
   );
 };

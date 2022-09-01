@@ -1,16 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import ResultList from './ResultList/ResultList';
 import NamesList from './NamesList/NamesList';
 import fileParser from './helpers/fileParser';
-// import useLocalStorage from './useLocalStorage';
+import useLocalStorage from './useLocalStorage/useLocalStorage';
 import s from './App.module.css';
 
 export default function App() {
   const [drag, setDrag] = useState(true);
-  // const [cerValue, setCerValue] = useLocalStorage('cerValue', []);
-  const [data, setData] = useState([]);
-  const [names, setNames] = useState([]);
-  const [listFiles, setListFiles] = useState([]);
+  const [locStorage, setLocStorage] = useLocalStorage('listValue', []);
+  const [btnStatus, setBtnStatus] = useState(false);
+  const [currentListElem, setCurrentListElem] = useState([]);
+  const [listValue, setListValue] = useState([]);
+
+  useEffect(() => {
+    setListValue(locStorage);
+  }, [locStorage]);
 
   const dragStartHandle = (e) => {
     e.preventDefault();
@@ -34,19 +38,25 @@ export default function App() {
     reader.onload = () => {
       let result = fileParser(reader.result, files[0].name);
 
-      listFiles.some((i) => i.idName === result.idName) ||
-        setListFiles((listFiles) => [...listFiles, result]);
-
-      setData(result, files[0].name);
+      listValue.find((item) => item.idName === result.idName) ||
+        setLocStorage((listValue) => [...listValue, result]);
     };
     setDrag(false);
+  };
+
+  const onNameClick = (e) => {
+    const targetNameId = e.target.dataset.name;
+    const currentName = listValue.find(
+      (value) => value.idName === targetNameId
+    );
+    setCurrentListElem(currentName);
   };
 
   return (
     <div>
       <div className={s.container}>
         <ul className={s.list}>
-          {/* {names && names.map((name) => <NamesList name={name} />)} */}
+          <NamesList listValue={listValue} onClick={onNameClick} />
         </ul>
 
         {drag ? (
@@ -66,12 +76,18 @@ export default function App() {
             onDragLeave={(e) => dragLeaveHandle(e)}
             onDragOver={(e) => dragOverHandle(e)}
           >
-            <ResultList data={data} />
+            {currentListElem ? (
+              <ResultList currentListElem={currentListElem} />
+            ) : (
+              <p>Порожньо</p>
+            )}
           </div>
         )}
       </div>
 
-      <button>Додати</button>
+      <button onClick={() => setBtnStatus(btnStatus ? false : true)}>
+        Додати
+      </button>
     </div>
   );
 }
