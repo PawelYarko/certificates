@@ -1,6 +1,7 @@
 import React from 'react';
 
 const ResultList = ({ currentListElem }) => {
+  console.log(currentListElem);
   return (
     <>
       <ul>

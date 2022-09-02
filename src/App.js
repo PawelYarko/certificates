@@ -3,13 +3,14 @@ import ResultList from './ResultList/ResultList';
 import NamesList from './NamesList/NamesList';
 import fileParser from './helpers/fileParser';
 import useLocalStorage from './useLocalStorage/useLocalStorage';
+import Button from '@mui/material/Button';
 import s from './App.module.css';
 
 export default function App() {
   const [drag, setDrag] = useState(true);
   const [locStorage, setLocStorage] = useLocalStorage('listValue', []);
   const [btnStatus, setBtnStatus] = useState(false);
-  const [currentListElem, setCurrentListElem] = useState([]);
+  const [currentListElem, setCurrentListElem] = useState(null);
   const [listValue, setListValue] = useState([]);
 
   useEffect(() => {
@@ -45,29 +46,47 @@ export default function App() {
   };
 
   const onNameClick = (e) => {
-    const targetNameId = e.target.dataset.name;
-    const currentName = listValue.find(
+    const targetNameId = e.currentTarget.dataset.name;
+    // console.log(e.currentTarget);
+    let currentListElem = listValue.find(
       (value) => value.idName === targetNameId
     );
-    setCurrentListElem(currentName);
+    setCurrentListElem(currentListElem);
+    setDrag(false);
   };
+
+  const btnAddClick = (e) => {
+    if (!btnStatus) {
+      e.target.textContent = 'Скасувати';
+      setBtnStatus(true);
+    } else {
+      e.target.textContent = 'Додати';
+      setBtnStatus(false);
+    }
+  };
+
+  // const btnDeleteClick = (id) => {
+  //   const index = listValue.findIndex((item) => item.idName === id);
+  //   if (index === -1) return;
+  //   setListValue(listValue.splice(index, 1));
+  // };
 
   return (
     <div>
       <div className={s.container}>
         <ul className={s.list}>
-          <NamesList listValue={listValue} onClick={onNameClick} />
+          {listValue && (
+            <NamesList
+              listValue={listValue}
+              onClick={onNameClick}
+              // btnDeleteClick={btnDeleteClick}
+            />
+          )}
         </ul>
 
-        {drag ? (
-          <div
-            className={s.result}
-            onDragStart={(e) => dragStartHandle(e)}
-            onDragLeave={(e) => dragLeaveHandle(e)}
-            onDragOver={(e) => dragOverHandle(e)}
-            onDrop={(e) => onDropHandler(e)}
-          >
-            add file
+        {drag && !btnStatus ? (
+          <div className={s.result}>
+            <p>Виберіть сертифікат, щоб переглянути інформацію</p>
           </div>
         ) : (
           <div
@@ -75,19 +94,19 @@ export default function App() {
             onDragStart={(e) => dragStartHandle(e)}
             onDragLeave={(e) => dragLeaveHandle(e)}
             onDragOver={(e) => dragOverHandle(e)}
+            onDrop={(e) => onDropHandler(e)}
           >
-            {currentListElem ? (
+            {!btnStatus ? (
               <ResultList currentListElem={currentListElem} />
             ) : (
-              <p>Порожньо</p>
+              <p>Перетягніть файл сертифіката у поле</p>
             )}
           </div>
         )}
       </div>
-
-      <button onClick={() => setBtnStatus(btnStatus ? false : true)}>
+      <Button onClick={(e) => btnAddClick(e)} variant="outlined">
         Додати
-      </button>
+      </Button>
     </div>
   );
 }
