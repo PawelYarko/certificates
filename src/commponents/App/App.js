@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import ResultList from '../ResultList/ResultList';
 import NamesList from '../NamesList/NamesList';
-import fileParser from '../helpers/fileParser';
-import useLocalStorage from '../useLocalStorage/useLocalStorage';
+import fileParser from '../../helpers/fileParser';
+import useLocalStorage from '../../useLocalStorage/useLocalStorage';
 import Button from '@mui/material/Button';
 import s from './App.module.css';
 
