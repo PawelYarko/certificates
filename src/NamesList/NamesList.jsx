@@ -16,25 +16,37 @@ const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
 
-const NamesList = ({ listValue, onClick, btnDeleteClick }) => {
+const NamesList = ({ listValue, currentListElem, onClick, btnDeleteClick }) => {
   return (
     <>
       <Grid item xs={12} md={6}>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-          Certificate
+          Certificates
         </Typography>
         <Demo>
-          <List>
+          <List className={s.list}>
             {listValue
               .filter((item) => item)
               .map((item) => (
                 <ListItem
+                  className={
+                    currentListElem && currentListElem.idName === item.idName
+                      ? `${s.active}`
+                      : ''
+                  }
                   key={item.idName}
                   data-name={item.idName}
                   onClick={onClick}
                 >
                   <ListItemAvatar>
-                    <Avatar>
+                    <Avatar
+                      className={
+                        currentListElem &&
+                        currentListElem.idName === item.idName
+                          ? `${s.activeicon}`
+                          : ''
+                      }
+                    >
                       <FolderIcon />
                     </Avatar>
                   </ListItemAvatar>

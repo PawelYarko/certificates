@@ -5,10 +5,21 @@ const ResultList = ({ currentListElem }) => {
   return (
     <>
       <ul className={s.list}>
-        <li className={s.item}>Common Name: {currentListElem.commonName}</li>
-        <li>Issuer CN: {currentListElem.issuerCN}</li>
-        <li>validFrom: {currentListElem.validFrom}</li>
-        <li>validTill: {currentListElem.validTill}</li>
+        <li>
+          <span className={s.label}>Common Name:</span>{' '}
+          {currentListElem.commonName}
+        </li>
+        <li>
+          <span className={s.label}>Issuer CN:</span> {currentListElem.issuerCN}
+        </li>
+        <li>
+          <span className={s.label}>validFrom:</span>{' '}
+          {currentListElem.validFrom.slice(0, 10)}
+        </li>
+        <li>
+          <span className={s.label}>validTill:</span>{' '}
+          {currentListElem.validTill.slice(0, 10)}
+        </li>
       </ul>
     </>
   );

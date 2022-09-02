@@ -10,7 +10,6 @@ export default function App() {
   const [drag, setDrag] = useState(true);
   const [locStorage, setLocStorage] = useLocalStorage('listValue', []);
   const [btnStatus, setBtnStatus] = useState(false);
-  const [isActive, setIsActive] = useState(false);
   const [currentListElem, setCurrentListElem] = useState(null);
   const [listValue, setListValue] = useState([]);
 
@@ -78,6 +77,7 @@ export default function App() {
         {listValue && (
           <NamesList
             listValue={listValue}
+            currentListElem={currentListElem}
             onClick={onNameClick}
             btnDeleteClick={btnDeleteClick}
           />
@@ -97,7 +97,7 @@ export default function App() {
             onDragOver={(e) => dragOverHandle(e)}
             onDrop={(e) => onDropHandler(e)}
           >
-            {!btnStatus && currentListElem ? (
+            {!btnStatus ? (
               <ResultList currentListElem={currentListElem} />
             ) : (
               <p>Перетягніть файл сертифіката у поле</p>

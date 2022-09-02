@@ -7,27 +7,42 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
+  margin-left: 60px;
+  margin-right: 60px;
 }
 
 .choose {
   width: 300px;
-  height: 150px;
+  min-height: 250px;
   border: 2px solid rgb(75, 75, 75);
   text-align: center;
 }
 
 .result {
   width: 300px;
-  height: 150px;
+  min-height: 250px;
   border: 2px dotted rgb(180, 180, 180);
   text-align: center;
 }
 
-/* .button {
-  width: 70px;
-  height: 40px;
-} */
+.button {
+  display: block;
+  width: 150px;
+  height: 50px;
+  margin-top: 15px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.list {
+  margin-right: 10px;
+  cursor: pointer;
+}
 
 .active {
-  background-color: blue;
+  color: rgb(112, 186, 204);
+}
+
+.activeicon {
+  background-color: rgb(112, 186, 204);
 }
