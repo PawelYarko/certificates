@@ -1,11 +1,11 @@
 import React from 'react';
+import s from './ResultList.module.css';
 
 const ResultList = ({ currentListElem }) => {
-  console.log(currentListElem);
   return (
     <>
-      <ul>
-        <li>Common Name: {currentListElem.commonName}</li>
+      <ul className={s.list}>
+        <li className={s.item}>Common Name: {currentListElem.commonName}</li>
         <li>Issuer CN: {currentListElem.issuerCN}</li>
         <li>validFrom: {currentListElem.validFrom}</li>
         <li>validTill: {currentListElem.validTill}</li>

@@ -1,3 +1,7 @@
+.main {
+  display: flex;
+  flex-direction: column;
+}
 .container {
   display: flex;
   flex-direction: row;
@@ -5,8 +9,25 @@
   align-items: center;
 }
 
+.choose {
+  width: 300px;
+  height: 150px;
+  border: 2px solid rgb(75, 75, 75);
+  text-align: center;
+}
+
 .result {
   width: 300px;
   height: 150px;
-  border: 2px solid black;
+  border: 2px dotted rgb(180, 180, 180);
+  text-align: center;
+}
+
+/* .button {
+  width: 70px;
+  height: 40px;
+} */
+
+.active {
+  background-color: blue;
 }

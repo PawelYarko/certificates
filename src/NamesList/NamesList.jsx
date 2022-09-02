@@ -10,19 +10,18 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import FolderIcon from '@mui/icons-material/Folder';
 import DeleteIcon from '@mui/icons-material/Delete';
+import s from '../App.module.css';
 
 const Demo = styled('div')(({ theme }) => ({
   backgroundColor: theme.palette.background.paper,
 }));
-// , btnDeleteClick
 
-const NamesList = ({ listValue, onNameClick }) => {
-  console.log(listValue);
+const NamesList = ({ listValue, onClick, btnDeleteClick }) => {
   return (
     <>
       <Grid item xs={12} md={6}>
         <Typography sx={{ mt: 4, mb: 2 }} variant="h6" component="div">
-          Certeficate
+          Certificate
         </Typography>
         <Demo>
           <List>
@@ -32,7 +31,7 @@ const NamesList = ({ listValue, onNameClick }) => {
                 <ListItem
                   key={item.idName}
                   data-name={item.idName}
-                  onClick={onNameClick}
+                  onClick={onClick}
                 >
                   <ListItemAvatar>
                     <Avatar>
@@ -43,7 +42,7 @@ const NamesList = ({ listValue, onNameClick }) => {
                   <IconButton
                     edge="end"
                     aria-label="delete"
-                    // onClick={() => btnDeleteClick(item.idName)}
+                    onClick={() => btnDeleteClick(item.idName)}
                   >
                     <DeleteIcon />
                   </IconButton>
